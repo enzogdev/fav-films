@@ -21,6 +21,7 @@ export const SearchBar = () => {
     >
       <div className="p-inputgroup">
         <InputText
+          id="search-input"
           value={searchTerm}
           onChange={handleInputChange}
           placeholder="Lord of the Rings"
