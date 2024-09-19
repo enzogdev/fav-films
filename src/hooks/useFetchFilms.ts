@@ -22,6 +22,7 @@ export const useFetchFilms = (): UseFetchFilmsReturn => {
 
                 try {
                     const data = await fetchFilmBySearch(searchTerm);
+                    console.log(data)
                     setFilms(data.Search || []);
                 } catch (err) {
                     setError((err as Error).message);
