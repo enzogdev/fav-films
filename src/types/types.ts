@@ -1,9 +1,9 @@
 export interface Film {
-    imdbID: string;
-    Title: string;
-    Year: string;
     Poster: string;
-    Ratings?: Rating[];
+    Year: string;
+    Title: string;
+    imdbID: string;
+    ratings?: Rating[];
 }
 export interface SearchResponse {
     Search: APIFilm[];
