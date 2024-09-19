@@ -1,30 +1,28 @@
 import { useState, useEffect } from 'react';
 import { fetchFilmBySearch } from '../services/FilmAPI';
 import { Film } from '../types/types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 interface UseFetchFilmsReturn {
     films: Film[];
     error: string | null;
-    searchFilms: (query: string) => void;
 }
 
 export const useFetchFilms = (): UseFetchFilmsReturn => {
     const [films, setFilms] = useState<Film[]>([]);
     const [error, setError] = useState<string | null>(null);
-    const [query, setQuery] = useState<string | null>(null);
+    const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
 
-    const searchFilms = (query: string) => {
-        setQuery(query);
-    };
 
     useEffect(() => {
-        if (query) {
+        if (searchTerm) {
             const fetchData = async () => {
                 setError(null);
 
                 try {
-                    const data = await fetchFilmBySearch(query);
-                    setFilms(data.Search);
+                    const data = await fetchFilmBySearch(searchTerm);
+                    setFilms(data.Search || []);
                 } catch (err) {
                     setError((err as Error).message);
                 }
@@ -32,7 +30,7 @@ export const useFetchFilms = (): UseFetchFilmsReturn => {
 
             fetchData();
         }
-    }, [query]);
+    }, [searchTerm]);
 
-    return { films, error, searchFilms };
+    return { films, error };
 };
