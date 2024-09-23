@@ -3,13 +3,16 @@ import { addFavorite, removeFavorite } from "../slices/favoriteSlice";
 import { RootState } from "../store/store";
 import { FilmCard } from "./FilmCard";
 import { useFetchFilms } from "../hooks/useFetchFilms";
+import { Button } from "primereact/button";
+import { NotFound } from "./NotFound";
 
 export const FilmList = () => {
-  const { films, error } = useFetchFilms();
+  const { films, error, loading, loadMore, hasMore } = useFetchFilms();
   const dispatch = useDispatch();
   const favoriteFilms = useSelector(
     (state: RootState) => state.favorites.favoriteFilms
   );
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
 
   const handleFavoriteToggle = (imdbID: string) => {
     const isFavorite = favoriteFilms.some(
@@ -32,22 +35,28 @@ export const FilmList = () => {
   };
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <NotFound searchTerm={searchTerm} />;
   }
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-      {films.map((film) => (
-        <FilmCard
-          key={film.imdbID}
-          imdbID={film.imdbID}
-          title={film.Title}
-          year={film.Year}
-          poster={film.Poster}
-          onFavoriteToggle={handleFavoriteToggle} // Pasar la función para togglear favoritos
-          isFavorite={isFilmFavorite(film.imdbID)} // Pasar si es favorito o no
-        />
-      ))}
-    </div>
+    <>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+        {films.map((film) => (
+          <FilmCard
+            key={film.imdbID}
+            imdbID={film.imdbID}
+            title={film.Title}
+            year={film.Year}
+            poster={film.Poster}
+            onFavoriteToggle={handleFavoriteToggle}
+            isFavorite={isFilmFavorite(film.imdbID)}
+          />
+        ))}
+      </div>
+      <div style={{ textAlign: "center" }}>
+        {loading && <p>Loading...</p>}
+        {hasMore && !loading && <Button label="See more" onClick={loadMore} />}
+      </div>
+    </>
   );
 };
