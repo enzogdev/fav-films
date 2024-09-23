@@ -30,12 +30,23 @@ header {
   flex-direction: row;
   gap: 20px;
   height: 200px;
+
+  & button {
+    opacity: 0;
+    transition: 0.3s opacity;
+  }
 }
 
 .mini-card img {
   aspect-ratio: 2/3;
   height: 100%;
   object-fit: cover;
+}
+.mini-card:hover {
+  & button {
+    opacity: 1;
+    transition: 0.3s opacity;
+  }
 }
 
 #see-favs {

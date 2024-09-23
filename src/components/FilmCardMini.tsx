@@ -20,8 +20,8 @@ export const FilmCardMini: React.FC<FilmCardProps> = (props: FilmCardProps) => {
         <Button
           icon={isFavorite ? "pi pi-star-fill" : "pi pi-star"}
           className={isFavorite ? "p-button-warning" : "p-button-outlined"}
-          label={isFavorite ? "Favorite" : "Add to favorites"}
-          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          label={"Remove from favorites"}
+          aria-label={`Remove ${title} from favorites`}
           onClick={() => onFavoriteToggle(imdbID)}
         />
       </div>
