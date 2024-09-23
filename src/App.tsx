@@ -7,10 +7,12 @@ import { FavoritesList } from "./components/FavoritesList";
 
 function App() {
   return (
-    <div>
-      <SearchBar />
+    <div style={{ position: "relative" }}>
+      <header>
+        <SearchBar />
+      </header>
       <FilmList />
-      <div>
+      <div className="card flex justify-content-center">
         <FavoritesList />
       </div>
     </div>
