@@ -11,7 +11,7 @@ interface FilmCardProps {
 }
 
 export const FilmCard: React.FC<FilmCardProps> = (props: FilmCardProps) => {
-  const { title, poster, year, isFavorite } = props;
+  const { imdbID, title, poster, year, isFavorite, onFavoriteToggle } = props;
 
   const header = (
     <img
@@ -32,8 +32,9 @@ export const FilmCard: React.FC<FilmCardProps> = (props: FilmCardProps) => {
       <Button
         icon={isFavorite ? "pi pi-star-fill" : "pi pi-star"}
         className={isFavorite ? "p-button-warning" : "p-button-outlined"}
-        label={isFavorite ? "Favourite" : "Add to favourites"}
+        label={isFavorite ? "Favorite" : "Add to favorites"}
         aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+        onClick={() => onFavoriteToggle(imdbID)}
       />
     </Card>
   );
