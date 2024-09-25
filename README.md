@@ -41,8 +41,8 @@ To use this application, you will need to get an API key from OMDb. You can get 
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/movie-search-app.git
-   cd movie-search-app
+   git clone https://github.com/enzogdev/fav-films.git
+   cd fav-films
 
    ```
 
